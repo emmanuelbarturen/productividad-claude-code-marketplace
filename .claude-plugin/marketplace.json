@@ -1,0 +1,15 @@
+{
+  "name": "productividad-claude-code-marketplace",
+  "description": "Plugins de productividad para Claude Code, en español. Primer plugin: proyectos, el ciclo de trabajo de una empresa en Markdown.",
+  "owner": {
+    "name": "Emmanuel Cervera Barturen",
+    "url": "https://github.com/emmanuelbarturen"
+  },
+  "plugins": [
+    {
+      "name": "proyectos",
+      "source": "./plugins/proyectos",
+      "description": "Ciclo de trabajo de una empresa en Markdown: /proyectos:setup, explorar, proponer, aplicar, archivar y validar, con sus reglas, plantillas y validador de estructura"
+    }
+  ]
+}
