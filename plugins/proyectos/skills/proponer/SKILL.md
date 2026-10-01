@@ -1,4 +1,5 @@
 ---
+name: proponer
 description: Crea o modifica la propuesta de un trabajo — tarea (un archivo con checklist) o proyecto (entrevista en vivo → propuesta, solución y plan de tareas). Declara área y resultado esperado. Sesión retomable vía el bloque Estado
 argument-hint: [trabajo o tema]
 disable-model-invocation: true

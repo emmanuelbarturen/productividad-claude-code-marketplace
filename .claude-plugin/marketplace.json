@@ -9,7 +9,17 @@
     {
       "name": "proyectos",
       "source": "./plugins/proyectos",
-      "description": "Ciclo de trabajo de una empresa en Markdown: /proyectos:setup, explorar, proponer, aplicar, archivar y validar, con sus reglas, plantillas y validador de estructura"
+      "description": "Ciclo de trabajo de una empresa en Markdown (Company Cycle OS): /proyectos:setup, explorar, proponer, aplicar, archivar y validar, con sus reglas, plantillas y validador de estructura",
+      "version": "0.2.0",
+      "author": {
+        "name": "Emmanuel Cervera Barturen",
+        "url": "https://github.com/emmanuelbarturen"
+      },
+      "repository": "https://github.com/emmanuelbarturen/productividad-claude-code-marketplace",
+      "license": "MIT",
+      "category": "productivity",
+      "keywords": ["proyectos", "gestion", "markdown", "empresa", "espanol", "productividad"],
+      "strict": false
     }
   ]
 }

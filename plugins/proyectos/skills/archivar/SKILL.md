@@ -1,4 +1,5 @@
 ---
+name: archivar
 description: Cierra un trabajo terminado — confirma dónde queda su resultado (pregunta siempre), lo mueve a Proyectos/Archivados/ y registra el hito en Decisiones. También pausa un trabajo sin archivarlo
 argument-hint: [trabajo]
 disable-model-invocation: true

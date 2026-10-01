@@ -1,4 +1,5 @@
 ---
+name: validar
 description: Revisa la estructura del repo de la empresa con el validador del plugin, o a mano si no hay bun (descriptores, tablas contra carpetas, cabeceras, tope de líneas, índice de referencias, trabajos con Estado, manifiesto del ejemplo) y, si se pide, la higiene previa a publicar
 argument-hint: [--publicar]
 ---

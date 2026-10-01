@@ -1,4 +1,5 @@
 ---
+name: setup
 description: Primera sesión en el repo — nombra tu empresa, declara sus áreas y temas, crea los descriptores, borra la empresa de ejemplo y deja el repo versionado. Se corre una sola vez
 argument-hint: (sin argumentos)
 disable-model-invocation: true

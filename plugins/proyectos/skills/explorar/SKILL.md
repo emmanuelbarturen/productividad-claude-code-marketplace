@@ -1,4 +1,5 @@
 ---
+name: explorar
 description: Piensa una idea o problema con contexto del repo, sin compromiso — pesa opciones y da forma a un posible trabajo ANTES de proponer nada. Clasifica el trabajo (tarea vs proyecto), identifica su área, y no escribe archivos salvo pedido explícito
 argument-hint: [tema o trabajo]
 ---

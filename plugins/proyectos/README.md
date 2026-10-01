@@ -16,16 +16,15 @@ El ciclo de trabajo de una empresa que vive en Markdown. Funciona sobre un repo 
 `setup`, `proponer`, `aplicar` y `archivar` solo corren cuando tú los invocas. `explorar`, `validar` y `reglas` también
 puede cargarlos Claude cuando el contexto lo pide.
 
+Si usas la plantilla de empresa Company Cycle OS, no hace falta instalarlo: su `.claude/settings.json` ya declara el
+marketplace y el plugin, y la app los ofrece al aceptar la confianza de la carpeta.
+
 ## Qué trae
 
 - `skills/`: los siete comandos.
-- `templates/`: los moldes de descriptores, proyecto, tarea y bitácora. Viven en el plugin para que cada versión traiga
-  los suyos.
+- `templates/`: los moldes de descriptores, proyecto, tarea y bitácora.
 - `scripts/validar.ts`: el validador. Un archivo, sin dependencias, necesita `bun`. Exit 0 limpio, 1 estructura,
   2 solo higiene (`--publicar`), 3 uso.
-- `tests/`: `bun test` corre 6 casos sobre una empresa de fixture.
+- `tests/`: los casos del validador sobre una empresa de fixture.
 
-## Publicar una versión
-
-Sube `version` en `.claude-plugin/plugin.json` y anota el cambio en `CHANGELOG.md`. Sin cambio de versión, quien ya
-lo instaló no recibe nada.
+Historial en [VERSIONS.md](VERSIONS.md).

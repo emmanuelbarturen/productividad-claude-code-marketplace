@@ -1,30 +1,37 @@
+![Productividad para Claude Code](assets/banner.svg)
+
 # Productividad para Claude Code
 
 Marketplace de plugins de productividad para [Claude Code](https://code.claude.com), en español.
 
-| Plugin | Qué hace |
-|---|---|
-| [`proyectos`](plugins/proyectos/) | El ciclo de trabajo de una empresa en Markdown: explorar → proponer → aplicar → archivar, con reglas, plantillas y validador |
+## Plugins disponibles
 
-## Instalar
+| Plugin | Qué hace | Comandos |
+|---|---|---|
+| [`proyectos`](plugins/proyectos/) | El ciclo de trabajo de una empresa en Markdown: explorar → proponer → aplicar → archivar, con reglas, plantillas y validador | `/proyectos:setup` · `explorar` · `proponer` · `aplicar` · `archivar` · `validar` · `reglas` |
 
-**Desde la app de escritorio de Claude**, pestaña *Code*: botón **+** junto al cuadro de texto → **Plugins** →
-**Add plugin** → agrega el marketplace `emmanuelbarturen/productividad-claude-code-marketplace` → instala `proyectos`.
+## Instalación
 
-**Desde la terminal:**
+### Claude Code: app de escritorio
+
+Pestaña *Code*: botón **+** junto al cuadro de texto → **Plugins** → **Add plugin** → agrega el marketplace
+`emmanuelbarturen/productividad-claude-code-marketplace` → instala el plugin que quieras.
+
+### Claude Code: terminal
 
 ```
 claude plugin marketplace add emmanuelbarturen/productividad-claude-code-marketplace
 claude plugin install proyectos@productividad-claude-code-marketplace
 ```
 
-Si usas la plantilla de empresa Company Cycle OS, no hace falta nada de esto: su `.claude/settings.json` ya declara el
-marketplace y el plugin, y la app los ofrece al aceptar la confianza de la carpeta.
-
-## Actualizar
+### Actualizar
 
 `/plugin` → *Marketplaces* → `productividad-claude-code-marketplace` → *Update*. Para recibir cambios solos, activa
 *Enable auto-update* en ese mismo menú.
+
+## Contribuir
+
+Ver [CONTRIBUTING.md](CONTRIBUTING.md). Cada plugin lleva su historial en `plugins/<plugin>/VERSIONS.md`.
 
 ## Licencia
 

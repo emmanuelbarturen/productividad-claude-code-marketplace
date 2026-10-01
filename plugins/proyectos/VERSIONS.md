@@ -1,4 +1,11 @@
-# Changelog
+# Versiones
+
+## 0.2.0 — 2026-09-30
+
+- `plugin.json` desaparece: nombre, versión y metadatos viven en la entrada del plugin en
+  `.claude-plugin/marketplace.json` del marketplace. El comando de instalación no cambia.
+- Cada `SKILL.md` declara `name:` igual a su carpeta.
+- El historial pasa de `CHANGELOG.md` a `VERSIONS.md`.
 
 ## 0.1.0 — 2026-09-28
 

@@ -1,4 +1,5 @@
 ---
+name: aplicar
 description: Sesión de ejecución sobre el plan de tareas de un trabajo — EJECUTA las tareas (no solo las trackea), escribe cada resultado directamente en su área y tema, y marca progreso verificado
 argument-hint: [trabajo]
 disable-model-invocation: true

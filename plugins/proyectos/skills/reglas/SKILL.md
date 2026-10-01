@@ -1,4 +1,5 @@
 ---
+name: reglas
 description: Reglas de trabajo de un repo de empresa en Markdown (Company Cycle OS) — clasificar antes de ejecutar, descriptores _context/_rules/_enlaces, áreas y temas, un solo hogar por archivo, tarea vs proyecto, bloque Estado, convenciones y validación. Cárgalas al inicio de cada sesión en un repo con _context.md en la raíz y Proyectos/, y antes de crear, mover o archivar cualquier archivo ahí
 argument-hint: (sin argumentos)
 ---
