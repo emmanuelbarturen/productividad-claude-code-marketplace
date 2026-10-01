@@ -5,7 +5,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Qué es este repo
 
 Un **marketplace de plugins de Claude Code**, todo en español. No es una app: el producto son las skills (Markdown
-con frontmatter), las plantillas y validadores en TypeScript. Hoy tiene dos plugins: `contenido` (redactores que escriben con tu voz) y `proyectos`, que lleva el ciclo de
+con frontmatter), las plantillas y validadores en TypeScript. Hoy tiene dos plugins: `contenido` (redactores que escriben con tu voz, tus formatos de publicación por canal y una parrilla de contenidos en Notion, Airtable o ClickUp) y `proyectos`, que lleva el ciclo de
 trabajo de un repo de empresa con la forma de **Company Cycle OS** (repo aparte): explorar → proponer → aplicar →
 archivar.
 
@@ -14,6 +14,8 @@ archivar.
 - `plugins/<plugin>/skills/<nombre>/SKILL.md` — cada skill es un comando `/<plugin>:<nombre>`; `name:` igual a la carpeta.
 - `plugins/<plugin>/VERSIONS.md` — historial propio de cada plugin.
 - `validar-skills.ts` (raíz) — formato de todas las skills de todos los plugins.
+- `plugins/contenido/.mcp.json` — los conectores que `contenido` trae consigo (Notion, Airtable, ClickUp). El repo no
+  depende de plugins externos: lo que una skill necesita va dentro de su plugin.
 - `plugins/proyectos/scripts/validar.ts` — validador de estructura del repo de la **empresa** (lo ejecutan las skills).
 
 Al instalar un plugin solo se copia su carpeta: **nada se comparte entre plugins**, ni se puede referenciar algo de
@@ -65,7 +67,12 @@ Cada vez que Emmanuel quiera agregar o importar una skill, **antes de crear arch
 resultado (quien instala uno recibe todas); nombre en español, kebab-case, sustantivo del dominio (`proyectos`,
 `contenido`), nunca el nombre de la skill ni de su autor. Prefiere un plugin existente; propone uno nuevo solo si la
 skill no comparte resultado con ninguno. Plugins actuales: `proyectos` (ciclo de trabajo de una empresa en Markdown) ·
-`contenido` (redactores que escriben con tu propia voz).
+`contenido` (redactores que escriben con tu propia voz, los formatos de publicación por canal y la parrilla de contenidos, en Notion, Airtable o ClickUp, que los pone a publicar).
+
+**`formatos.md` es un contrato entre dos skills de `contenido`.** `construir-formatos` lo escribe y `construir-parrilla`
+lo lee: `## <Canal>`, las líneas `Por defecto:` y `Texto:`, `### <tipo>` y sus seis campos, con «Opción en la parrilla»
+y los nombres de bloque del borrador (`## Láminas`, `## Infográfico`, `## Guion de video`). Si cambias uno de esos
+nombres, cámbialo en las dos skills.
 
 Skill importada de terceros: copia sin cambios con su `LICENSE` dentro de la carpeta de la skill, y anota origen,
 commit y licencia en el `README.md` del plugin.
