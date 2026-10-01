@@ -5,7 +5,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Qué es este repo
 
 Un **marketplace de plugins de Claude Code**, todo en español. No es una app: el producto son las skills (Markdown
-con frontmatter), las plantillas y validadores en TypeScript. Hoy tiene un plugin, `proyectos`, que lleva el ciclo de
+con frontmatter), las plantillas y validadores en TypeScript. Hoy tiene dos plugins: `contenido` (redactores que escriben con tu voz) y `proyectos`, que lleva el ciclo de
 trabajo de un repo de empresa con la forma de **Company Cycle OS** (repo aparte): explorar → proponer → aplicar →
 archivar.
 
@@ -57,6 +57,18 @@ del ejemplo en `.ccos/ejemplo.txt`) también las enuncian `reglas`, `setup` y la
 **Tests.** `plugins/proyectos/tests/validar.test.ts` copia `tests/fixtures/empresa/` a un temporal, la rompe a
 propósito y corre el script con `Bun.spawnSync` comprobando el exit code. Un chequeo nuevo = un caso nuevo con su
 rotura mínima. `tests/skills.test.ts` (raíz) exige que `validar-skills.ts` dé 0 errores.
+
+## Dónde va cada skill nueva
+
+Cada vez que Emmanuel quiera agregar o importar una skill, **antes de crear archivos** recomienda en qué carpeta
+`plugins/<plugin>/` va, con una línea de por qué. Criterio: un plugin agrupa skills que se usan juntas para un mismo
+resultado (quien instala uno recibe todas); nombre en español, kebab-case, sustantivo del dominio (`proyectos`,
+`contenido`), nunca el nombre de la skill ni de su autor. Prefiere un plugin existente; propone uno nuevo solo si la
+skill no comparte resultado con ninguno. Plugins actuales: `proyectos` (ciclo de trabajo de una empresa en Markdown) ·
+`contenido` (redactores que escriben con tu propia voz).
+
+Skill importada de terceros: copia sin cambios con su `LICENSE` dentro de la carpeta de la skill, y anota origen,
+commit y licencia en el `README.md` del plugin.
 
 ## Agregar un plugin o publicar una versión
 

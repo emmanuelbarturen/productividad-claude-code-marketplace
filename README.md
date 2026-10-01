@@ -9,6 +9,7 @@ Marketplace de plugins de productividad para [Claude Code](https://code.claude.c
 | Plugin | Qué hace | Comandos |
 |---|---|---|
 | [`proyectos`](plugins/proyectos/) | El ciclo de trabajo de una empresa en Markdown: explorar → proponer → aplicar → archivar, con reglas, plantillas y validador | `/proyectos:setup` · `explorar` · `proponer` · `aplicar` · `archivar` · `validar` · `reglas` |
+| [`contenido`](plugins/contenido/) | Redactores que escriben con tu propia voz: uno por grupo de temas, a partir de tus recursos, una entrevista y textos tuyos | `/contenido:construir-redactores` |
 
 ## Instalación
 

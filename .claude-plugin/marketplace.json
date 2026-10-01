@@ -1,6 +1,6 @@
 {
   "name": "productividad-claude-code-marketplace",
-  "description": "Plugins de productividad para Claude Code, en español. Primer plugin: proyectos, el ciclo de trabajo de una empresa en Markdown.",
+  "description": "Plugins de productividad para Claude Code, en español: proyectos (el ciclo de trabajo de una empresa en Markdown) y contenido (redactores que escriben con tu propia voz).",
   "owner": {
     "name": "Emmanuel Cervera Barturen",
     "url": "https://github.com/emmanuelbarturen"
@@ -18,7 +18,36 @@
       "repository": "https://github.com/emmanuelbarturen/productividad-claude-code-marketplace",
       "license": "MIT",
       "category": "productivity",
-      "keywords": ["proyectos", "gestion", "markdown", "empresa", "espanol", "productividad"],
+      "keywords": [
+        "proyectos",
+        "gestion",
+        "markdown",
+        "empresa",
+        "espanol",
+        "productividad"
+      ],
+      "strict": false
+    },
+    {
+      "name": "contenido",
+      "source": "./plugins/contenido",
+      "description": "Redactores que escriben con tu propia voz: /contenido:construir-redactores lee tus recursos, te entrevista y deja sobre-mi.md, voz.md y un redactor por grupo de temas en .claude/agents/",
+      "version": "0.1.0",
+      "author": {
+        "name": "Emmanuel Cervera Barturen",
+        "url": "https://github.com/emmanuelbarturen"
+      },
+      "repository": "https://github.com/emmanuelbarturen/productividad-claude-code-marketplace",
+      "license": "MIT",
+      "category": "productivity",
+      "keywords": [
+        "contenido",
+        "redactores",
+        "voz",
+        "escritura",
+        "linkedin",
+        "marca-personal"
+      ],
       "strict": false
     }
   ]
