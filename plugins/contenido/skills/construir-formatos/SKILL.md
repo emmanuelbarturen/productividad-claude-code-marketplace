@@ -1,7 +1,7 @@
 ---
 name: construir-formatos
 description: >
-  Define los formatos de publicación de un emprendedor que publica él mismo en redes sociales: por cada canal (LinkedIn, Instagram, Facebook, blog propio u otro), qué tipos de publicación usa (texto solo, texto + imagen, texto + video, carrusel, infográfico, artículo) y una ficha por tipo que dice qué es, cuándo conviene, qué entrega el borrador, sus reglas y qué arma la persona a mano. Deja formatos.md en el proyecto; con él, la parrilla ofrece sus tipos en «Canal + tipo» y cada borrador sale con la forma de su tipo (un carrusel, con su guion lámina por lámina). Actívala cuando el usuario diga "define mis formatos", "construye mis formatos", "qué tipos de publicación uso", "agrega un canal", "agrega un formato", "agrega el carrusel", "cambia la ficha del carrusel" o "qué entrega un infográfico".
+  Define los formatos de publicación de un emprendedor que publica él mismo en redes sociales: por cada canal (LinkedIn, Instagram, Facebook, blog propio u otro), qué tipos de publicación usa (texto solo, texto + imagen, texto + video, carrusel, infográfico, artículo) y una ficha por tipo que dice qué es, cuándo conviene, qué entrega el borrador, sus reglas y qué arma la persona a mano. También define, por canal, qué otra publicación sale de cada pieza y cómo se publica. Deja formatos.md en el proyecto; con él, la parrilla ofrece sus tipos en «Canal + tipo» y cada borrador sale con la forma de su tipo (un carrusel, con su guion lámina por lámina). Actívala cuando el usuario diga "define mis formatos", "construye mis formatos", "qué tipos de publicación uso", "agrega un canal", "agrega un formato", "agrega el carrusel", "cambia la ficha del carrusel" o "qué entrega un infográfico".
 ---
 
 # Construir formatos
@@ -26,7 +26,9 @@ Un **canal** es dónde publica (LinkedIn, su blog). Un **tipo** es la forma de l
 
 **Esta skill define; no construye.** La regla de texto y las reglas de cada tipo se definen aquí y solo aquí. Las demás skills las usan: no las vuelven a preguntar ni guardan una copia.
 
-`formatos.md` lo leen otras skills del plugin. `construir-parrilla` toma de ahí las opciones del campo `Canal + tipo`, la regla de texto y la forma de cada borrador. Por eso **la estructura del archivo es fija** y los nombres de sus campos se copian exactos.
+Dos líneas opcionales de un canal completan lo anterior: **`Lleva:`** dice qué otra publicación sale de cada pieza de ese canal y cuándo, y **`Publicar:`** dice cómo se publica ahí.
+
+`formatos.md` lo leen otras skills del plugin. `construir-parrilla` toma de ahí las opciones del campo `Canal + tipo`. Las skills `post-*` leen la regla de texto, la forma de cada borrador y las líneas `Lleva:` y `Publicar:`, y `post-disenar` lee la `Herramienta:` de cada ficha. Por eso **la estructura del archivo es fija** y los nombres de sus campos se copian exactos.
 
 ## Entorno
 
@@ -41,7 +43,7 @@ Un **canal** es dónde publica (LinkedIn, su blog). Un **tipo** es la forma de l
 Cuando el usuario pida este flujo, haz el Paso 0 en silencio y sigue:
 
 - **No existe `formatos.md`:** tu siguiente mensaje es la primera pregunta que falte (los canales, o los tipos si los canales ya se saben). Nada más.
-- **Existe:** léelo. Si el pedido ya dice qué cambiar («agrega el carrusel de Instagram», «cambia la ficha del video»), ve directo a eso. Si no, haz una sola pregunta con `AskUserQuestion`, con estas cuatro opciones: **sumar un canal**, **sumar un tipo**, **cambiar una ficha** o **rehacer** todo. Al actualizar, edita el archivo en su sitio y conserva lo que la persona haya escrito a mano.
+- **Existe:** léelo. Si el pedido ya dice qué cambiar («agrega el carrusel de Instagram», «cambia la ficha del video», «mi blog lleva un post en LinkedIn»), ve directo a eso. Si no, haz una sola pregunta con `AskUserQuestion`, con estas cuatro opciones: **sumar un canal o un tipo**, **cambiar una ficha**, **cambiar qué sale de cada pieza o cómo se publica** (las líneas `Lleva:` y `Publicar:`) o **rehacer** todo. Al actualizar, edita el archivo en su sitio y conserva lo que la persona haya escrito a mano.
 
 No resumas esta skill, no expliques cómo funciona y no preguntes si el usuario quiere correrla.
 
@@ -49,7 +51,7 @@ No resumas esta skill, no expliques cómo funciona y no preguntes si el usuario 
 
 Mira, sin comentar, qué hay en el proyecto. Lo que ya está escrito no se vuelve a preguntar:
 
-- `formatos.md`: lo ya definido.
+- `formatos.md`: lo ya definido. Una línea `Lleva:` o `Publicar:` que ya esté escrita, a mano o por esta skill, se conserva y no se vuelve a preguntar, salvo que la persona pida cambiarla.
 - `sobre-mi.md` y `.claude/agents/redactor-*.md`: la sección «Redes, formato y ritmo» de cada redactor dice en qué redes publica y con qué forma. Esas redes son sus canales, y esas formas se proponen ya marcadas.
 - `parrilla.md`: su «Canal por defecto» es un canal y un tipo que la persona ya usa. Si trae una línea «Texto», es una regla de texto escrita antes de que existiera `formatos.md`: se ofrece como primera opción de la pregunta («La que ya tienes»), no se copia sin preguntar.
 - `voz.md` y los redactores: si dicen cuánto mide un texto o si lleva hashtags («nunca hashtags»), **manda la voz**. Eso se escribe en la regla de texto diciendo de dónde salió, y no se pregunta.
@@ -58,7 +60,7 @@ Mira, sin comentar, qué hay en el proyecto. Lo que ya está escrito no se vuelv
 
 ## Paso 1. Canales y tipos
 
-**La entrevista es corta y va con `AskUserQuestion`: con uno o dos canales, cinco tandas de preguntas o menos** (canales, tipos, por defecto y reglas, regla de texto, confirmación). Con más canales hacen falta más tandas: junta en cada llamada todas las preguntas que quepan y no hagas ninguna que el Paso 0 ya respondió.
+**La entrevista es corta y va con `AskUserQuestion`: con uno o dos canales, seis tandas de preguntas o menos** (canales, tipos, por defecto y reglas, regla de texto, qué sale de cada pieza y cómo se publica, confirmación). Con más canales hacen falta más tandas: junta en cada llamada todas las preguntas que quepan y no hagas ninguna que el Paso 0 ya respondió.
 
 ### Canales
 
@@ -173,9 +175,9 @@ Con `AskUserQuestion`, solo sobre los tipos que eligió. Las preguntas de abajo 
     "header": "Herramienta",
     "multiSelect": false,
     "options": [
-      {"label": "Claude Code", "description": "Se la pido a Claude aquí mismo, con una skill que arme la pieza"},
-      {"label": "Canva", "description": "Plantillas y diseño en el navegador"},
-      {"label": "Figma", "description": "Diseño propio, lámina por lámina"},
+      {"label": "Claude Code", "description": "Se la pido a Claude aquí mismo: /contenido:post-disenar la arma con mi estilo y la exporta a PDF e imagen"},
+      {"label": "Canva", "description": "/contenido:post-disenar crea el diseño en mi cuenta de Canva y yo lo ajusto ahí"},
+      {"label": "Figma", "description": "Diseño propio, lámina por lámina. La armo yo con el guion del borrador"},
       {"label": "Lo decido después", "description": "Queda pendiente en la ficha"}
     ]
   }
@@ -184,7 +186,7 @@ Con `AskUserQuestion`, solo sobre los tipos que eligió. Las preguntas de abajo 
 
 - **El tipo por defecto** se pregunta una vez por canal, con los tipos que eligió como opciones. Pregunta en palabras de todos los días («¿qué formato usas más seguido?»): no uses «por defecto» ni «formato de todos los días» en la pregunta. La explicación de para qué sirve va en la descripción de cada opción. Si en un canal eligió un solo tipo, ese es el tipo por defecto y no se pregunta. Si eligió más de 4, ofrece los cuatro más probables: puede escribir otro.
 - **Las reglas** se preguntan solo para los tipos elegidos que las piden: las láminas, si eligió carrusel; la duración, si eligió un tipo con video; la herramienta, si eligió carrusel, infográfico o un tipo con imagen. Para otra regla previsible, arma la pregunta igual: rangos como opciones y «Lo decido después».
-- **La herramienta se escribe en «Lo haces tú», no en «Tus reglas».** «Tus reglas» lleva solo lo que el borrador debe cumplir (láminas, duración, extensión).
+- **La herramienta se escribe en «Lo haces tú», no en «Tus reglas».** «Tus reglas» lleva solo lo que el borrador debe cumplir (láminas, duración, extensión). Va al final del campo, con la etiqueta `Herramienta:` y el nombre tal cual: `Herramienta: Claude Code`, `Herramienta: Canva`, `Herramienta: Figma` u otra que la persona escriba. «Lo decido después» se escribe `Herramienta: pendiente`. Solo la llevan los tipos con pieza visual: carrusel, infográfico y los que llevan imagen.
 - **Un tipo que está en más de un canal se pregunta una sola vez.** Su regla vale para todos sus canales, y la pregunta lo dice («¿Cuántas láminas lleva tu carrusel? Vale para LinkedIn e Instagram»). Si la persona quiere una regla distinta por canal, la escribe en la respuesta libre.
 - Los rangos de las opciones son puntos de partida para que la persona elija **su** regla, no límites de ninguna plataforma. Si escribe otro número, ese manda.
 - «Lo decido después» o una pregunta sin responder queda como «pendiente» en la ficha. **No inventes una regla** ni pongas un número que la persona no dijo.
@@ -227,13 +229,69 @@ Cuánto mide como máximo el texto que se publica en ese canal y cuántos hashta
 - En un blog la extensión depende del artículo: va en «Tus reglas» del artículo largo y del corto, y la regla de texto del canal dice «según el tipo», seguida de la regla de hashtags si la persona los usa en su blog.
 - Como en las demás reglas: los rangos son puntos de partida para que la persona elija la suya, no límites de ninguna plataforma.
 
+### Qué sale de cada pieza y cómo se publica
+
+Dos líneas opcionales de cada canal. Van en la misma tanda que la regla de texto si caben; si no, en la siguiente.
+
+**`Lleva:`** dice que cada pieza de un canal lleva otra publicación en otro canal: cada artículo del blog, su post en LinkedIn. Se pregunta **solo si la persona tiene dos canales o más**.
+
+```json
+[
+  {
+    "question": "¿Alguna de tus publicaciones lleva otra en otro canal?",
+    "header": "Lleva",
+    "multiSelect": false,
+    "options": [
+      {"label": "Cada artículo del blog, un post en LinkedIn", "description": "El post presenta el artículo y lleva su link"},
+      {"label": "Cada post de LinkedIn, uno en Instagram", "description": "El mismo tema, con la forma del otro canal"},
+      {"label": "No, cada tema sale en un solo canal", "description": "Una publicación por tema"}
+    ]
+  },
+  {
+    "question": "Si lleva otra, ¿cuándo sale?",
+    "header": "Cuándo",
+    "multiSelect": false,
+    "options": [
+      {"label": "El mismo día", "description": "Sale junto con la primera"},
+      {"label": "Al día hábil siguiente", "description": "Un día después, sin contar sábado ni domingo"},
+      {"label": "Dos días después", "description": "O escribe cuántos días"}
+    ]
+  }
+]
+```
+
+- Las opciones de la primera pregunta se arman con **sus** canales: un par por opción, y siempre la opción de que no lleva ninguna. Si responde que no, la segunda pregunta no cuenta y no se escribe la línea.
+- La línea va debajo del canal **de la pieza de la que sale la otra**: `Lleva: <opción en la parrilla>, <cuándo>`. La opción se copia de la ficha del tipo que sale, sin comillas invertidas. `<cuándo>` es exactamente `el mismo día`, `al día hábil siguiente` o `N días después`.
+- El tipo de la publicación que sale es el de la línea `Por defecto:` de su canal, salvo que la persona nombre otro.
+- **Una sola línea `Lleva:` por canal, con una sola publicación.** Si la persona pide dos, escribe la primera y dile que por ahora cada canal lleva una sola.
+
+**`Publicar:`** dice cómo se publica en un canal. Se pregunta **solo para un blog y para un canal propio**. En una red social no se pregunta ni se escribe: sin la línea, publica la persona a mano.
+
+```json
+[
+  {
+    "question": "¿Cómo publicas en tu blog?",
+    "header": "Publicar",
+    "multiSelect": false,
+    "options": [
+      {"label": "A mano", "description": "Copio el texto y lo subo yo al gestor de mi blog"},
+      {"label": "Con una herramienta", "description": "Un conector o un comando de esta sesión que publica por mí. Escribe cuál"},
+      {"label": "Lo decido después", "description": "Mientras tanto, publicas a mano"}
+    ]
+  }
+]
+```
+
+- «A mano» se escribe `Publicar: a mano`. Con una herramienta, `Publicar:` y su nombre tal como lo dijo la persona. «Lo decido después» no escribe la línea.
+- Esta skill no comprueba que la herramienta exista ni la configura. Eso lo comprueba la skill que publica, antes de usarla y con el ok de la persona.
+
 ### Canal o tipo propio
 
 Un canal o un tipo que no está en el catálogo llega escrito por la persona en la respuesta libre de una pregunta. Primero mira si una ficha de referencia le sirve (un video en otro canal usa la ficha de video): si sirve, úsala y cambia solo la opción, sin preguntar más. Si no sirve, pregunta con `AskUserQuestion` lo que tenga respuestas previsibles (qué bloque quiere en el borrador: solo texto, texto y guion, texto y láminas, texto e indicación de imagen) y pide en un solo mensaje en el chat lo que no cabe en opciones: qué es y cuándo lo usa.
 
 ## Paso 3. Confirma y escribe formatos.md
 
-Antes de escribir, muestra el resumen en una tabla, con la regla de texto de cada canal en una línea debajo, y pide el ok con `AskUserQuestion`:
+Antes de escribir, muestra el resumen en una tabla, con la regla de texto de cada canal en una línea debajo y, si las hay, sus líneas `Lleva:` y `Publicar:`, y pide el ok con `AskUserQuestion`:
 
 | Canal | Tipo | Por defecto | Tus reglas |
 |---|---|---|---|
@@ -252,7 +310,7 @@ Antes de escribir, muestra el resumen en una tabla, con la regla de texto de cad
 ]
 ```
 
-Con el ok, escribe `formatos.md` en la raíz del proyecto. **La estructura es fija:** un `## <Canal>` por canal, debajo sus líneas `Por defecto:` y `Texto:`, y un `### <tipo>` por tipo con los seis campos, siempre con estos nombres y en este orden:
+Con el ok, escribe `formatos.md` en la raíz del proyecto. **La estructura es fija:** un `## <Canal>` por canal, debajo sus líneas `Por defecto:` y `Texto:` (y `Lleva:` y `Publicar:`, si aplican), y un `### <tipo>` por tipo con los seis campos, siempre con estos nombres y en este orden:
 
 ```
 # Formatos
@@ -270,18 +328,23 @@ Texto: [extensión máxima y hashtags, con su origen si salió de `voz.md`; o «
 - **Cuándo conviene:** [de la ficha de referencia, ajustado a lo que dijo la persona]
 - **El borrador entrega:** [de la ficha de referencia]
 - **Tus reglas:** [lo que dijo la persona · «la regla de texto del canal» si el tipo no tiene otra · «pendiente» si la dejó para después]
-- **Lo haces tú:** [de la ficha de referencia, con la herramienta que nombró la persona si la nombró]
+- **Lo haces tú:** [de la ficha de referencia]
 
 ### carrusel
 - **Opción en la parrilla:** `linkedin - carrusel`
 [...]
+- **Lo haces tú:** [de la ficha de referencia]. Herramienta: [la que nombró la persona · `pendiente`]
 
 ## Blog propio
 
 Por defecto: artículo corto
 Texto: según el tipo
+Lleva: linkedin - carrusel, al día hábil siguiente
+Publicar: a mano
 [...]
 ```
+
+- Las líneas `Lleva:` y `Publicar:` van solo en el canal donde la persona las definió, después de `Texto:` y en ese orden. Un canal sin ellas no las lleva.
 
 - Solo se escriben los canales y los tipos que la persona eligió.
 - **`Por defecto:` es la copia exacta de un `### <tipo>` de ese canal,** en minúsculas (`Por defecto: texto solo`, con un `### texto solo` debajo). No lleva la opción ni una abreviatura.
@@ -296,7 +359,7 @@ Di, con sus datos reales:
 
 Si llegaste aquí desde la configuración de la parrilla, no des acción siguiente: vuelve a ese paso. Si no, agrega **una sola** acción siguiente, la primera que aplique:
 
-1. Si existe `parrilla.md`: «La próxima vez que uses tu parrilla, las opciones de `Canal + tipo` se ponen al día con estos formatos. Di "arma mi parrilla"».
+1. Si existe `parrilla.md`: «Para que tu tablero tenga estas opciones en `Canal + tipo`, escribe `/contenido:construir-parrilla`».
 2. Si no existe: «Para que estos formatos lleguen a tu calendario, di "construye mi parrilla"».
 
 Si alguna regla quedó pendiente, dilo en una línea: qué ficha y qué falta.
@@ -386,12 +449,14 @@ Una por tipo. Valen para cualquier canal que tenga ese tipo. **Todo borrador tra
 - Cuando esta skill se active, ve directo al trabajo. Sin resumen, sin explicación, sin preámbulo.
 - **La skill propone; la persona decide.** `formatos.md` se escribe solo después de su ok sobre el resumen.
 - **Toda la información que se pueda se recaba con `AskUserQuestion`.** Lo que tiene respuestas previsibles se pregunta con opciones, nunca en el chat. El chat queda para lo que no cabe en opciones y para cuando la herramienta no está disponible.
-- **La entrevista es corta:** con uno o dos canales, cinco tandas de preguntas o menos. Las fichas se llenan con el catálogo; a la persona solo se le pregunta qué usa, cuál va por defecto y sus reglas.
+- **La entrevista es corta:** con uno o dos canales, seis tandas de preguntas o menos. Las fichas se llenan con el catálogo; a la persona solo se le pregunta qué usa, cuál va por defecto, sus reglas, qué sale de cada pieza y cómo publica.
+- **`Lleva:` se pregunta solo con dos canales o más; `Publicar:`, solo para un blog o un canal propio.** Una línea `Lleva:` por canal, con una sola publicación. Lo que la persona no definió no se escribe.
+- **La herramienta de una pieza visual va con la etiqueta `Herramienta:`** al final de «Lo haces tú». La lee la skill que arma la pieza.
 - **Esta skill define; no construye.** La regla de texto de cada canal y las reglas de cada tipo se definen aquí. Las demás skills las usan tal cual: no las vuelven a preguntar ni guardan una copia. La pieza visual la arma la persona o la skill que la construya.
 - **La voz manda sobre la regla de texto:** lo que `voz.md` o un redactor digan sobre extensión o hashtags se escribe con su origen y no se pregunta. Si dos reglas chocan, el orden es: `voz.md` y el redactor, después «Tus reglas» del tipo, después `Texto:` del canal. La voz también manda sobre «El borrador entrega»: lo que la voz prohíbe no se escribe aunque la ficha lo pida.
 - **Canales ya conocidos no se vuelven a preguntar,** pero siempre se pregunta si hay alguno más.
 - **Un tipo que está en varios canales se pregunta una sola vez,** y la pregunta dice para qué canales vale.
-- **La estructura de `formatos.md` es fija:** `## <Canal>`, `Por defecto:`, `Texto:`, `### <tipo>` y los seis campos con su nombre exacto. Otras skills lo leen.
+- **La estructura de `formatos.md` es fija:** `## <Canal>`, `Por defecto:`, `Texto:`, las líneas opcionales `Lleva:` y `Publicar:`, `### <tipo>` y los seis campos con su nombre exacto. Otras skills lo leen.
 - **«Opción en la parrilla» se copia exacta:** `<canal> - <tipo>`, en minúsculas, sin tilde y sin repetirse.
 - **Ningún número de plataforma.** Esta skill no afirma medidas, duraciones ni límites de ninguna red. Los números de una ficha son reglas de la persona, o quedan «pendiente».
 - **El formato da la estructura; las palabras las pone el redactor.** No se crea un redactor por formato: un carrusel y un texto del mismo tema los escribe el mismo redactor.

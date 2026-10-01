@@ -11,6 +11,10 @@
     "clickup": {
       "type": "http",
       "url": "https://mcp.clickup.com/mcp"
+    },
+    "canva": {
+      "type": "http",
+      "url": "https://mcp.canva.com/mcp"
     }
   }
 }

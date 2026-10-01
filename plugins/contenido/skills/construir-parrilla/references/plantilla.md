@@ -59,7 +59,7 @@ Lo que no cabe en la tabla:
 
 **Descripción de la base,** tal cual:
 
-> Lugares de donde salen temas: noticias, boletines, personas, normas. Una fila por fuente. Al armar la parrilla se revisan y se anota la fecha.
+> Lugares de donde salen temas: noticias, boletines, personas, normas. Una fila por fuente. Al proponer temas se revisan y se anota la fecha.
 
 **Dos ejemplos:**
 
@@ -99,4 +99,4 @@ Si la persona dice que sí:
 4. Relee y di qué quedó borrado y qué falta que borre ella.
 5. Anota en `parrilla.md`: «**Ejemplos:** borrados el AAAA-MM-DD», o «pendientes de borrar a mano».
 
-Si dice que no, anota «**Ejemplos:** presentes» y sigue. Mientras existan, los ejemplos **no cuentan**: Armar no los toma como piezas ni les reserva fecha, y Repaso no los lista.
+Si dice que no, anota «**Ejemplos:** presentes» y sigue. Mientras existan, los ejemplos **no cuentan**: ninguna skill los toma como piezas, les reserva fecha ni los lista.

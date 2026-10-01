@@ -1,7 +1,7 @@
 ---
 name: construir-parrilla
 description: >
-  Construye y opera la parrilla de contenidos de un emprendedor que publica él mismo en redes sociales. La parrilla vive en Notion, en Airtable o en ClickUp, a elección de la persona, con una fila por pieza: tema, canal, estado, fecha programada, redactor, palabras y link publicado, y una ayuda en cada columna que explica para qué sirve. Arriba de la parrilla van una base de fuentes y una página de temas propios. Tiene cuatro flujos: Configurar (pregunta dónde va la parrilla, consigue el acceso y la crea con su estructura), Armar (propone los temas de las próximas semanas y los itera hasta que cada uno queda aprobado o descartado), Redactar (el redactor escribe el post aprobado con la fuente de cada dato) y Repaso (lista lo vencido y cierra lo publicado con su link). Actívala cuando el usuario diga "construye mi parrilla", "configura mi parrilla", "arma mi parrilla", "propón temas", "qué publico las próximas semanas", "redacta el post", "repaso de mi parrilla", "qué tengo vencido" o "ya publiqué el post".
+  Construye el tablero de la parrilla de contenidos de un emprendedor que publica él mismo en redes sociales. La parrilla vive en Notion, en Airtable o en ClickUp, a elección de la persona, con una fila por pieza: tema, canal, estado, fecha programada, redactor, palabras y link publicado, y una ayuda en cada columna que explica para qué sirve. Arriba de la parrilla van una base de fuentes y una página de temas propios. Pregunta dónde va la parrilla, consigue el acceso, la crea con su estructura y deja parrilla.md; después la pone al día cuando cambian los formatos o los redactores. Solo construye el tablero: proponer temas, redactar y publicar son de /contenido:post-proponer, /contenido:post-redactar y /contenido:post-publicar. Actívala cuando el usuario diga "construye mi parrilla", "configura mi parrilla", "arma mi parrilla", "crea mi tablero de contenidos", "pon al día mi parrilla" o "agrega una opción a mi parrilla".
 ---
 
 # Construir parrilla
@@ -13,7 +13,7 @@ Para un emprendedor que es la cara de su negocio y publica él mismo. Usa estos 
 - **Lo que se le traba es publicar, no las ideas.** La parrilla existe para que cada semana solo le quede leer un borrador y publicarlo.
 - **Su audiencia desconfía de las promesas grandes.** Cada cifra y cada hecho de un post tiene que poder rastrearse a algo que de verdad pasó.
 - **Él decide, la skill propone.** Ningún tema y ningún texto avanzan sin su ok explícito.
-- **Publica él, a mano, en su cuenta.** La skill deja borradores listos; nunca publica.
+- **Publica él, en su cuenta.** Esta skill deja el tablero listo: no propone temas, no escribe y no publica.
 
 ## Qué construye
 
@@ -23,10 +23,11 @@ La parrilla                  una fila por pieza, de tema propuesto a publicado.
 Fuentes                      dónde mirar para encontrar temas: links y referencias. Va arriba de la parrilla
 Temas propios                donde la persona anota sus temas en viñetas: título y descripción. Va arriba de la parrilla
 parrilla.md                  dónde está la parrilla y las reglas propias de esta persona
-posts/NN-<slug>.md           un borrador por pieza: el texto, la fuente de cada dato y el chequeo
 ```
 
-**El objetivo final es la parrilla en el destino que eligió la persona,** con la misma estructura en los tres. `parrilla.md` y `posts/` existen para que la skill la encuentre en cada sesión y para que cada borrador tenga su archivo. En el resto de esta skill, «la base» es esa parrilla, esté en Notion, en Airtable o en ClickUp.
+**El objetivo final es la parrilla en el destino que eligió la persona,** con la misma estructura en los tres. `parrilla.md` existe para que las demás skills encuentren el tablero en cada sesión. En el resto de esta skill, «la base» es esa parrilla, esté en Notion, en Airtable o en ClickUp.
+
+**Esta skill construye el tablero y nada más.** Los temas los propone `/contenido:post-proponer`, los textos los escribe `/contenido:post-redactar`, la pieza visual la arma `/contenido:post-disenar` y la publicación la cierra `/contenido:post-publicar`. Las cuatro leen de aquí los nombres de los campos y de los estados.
 
 ## La base
 
@@ -73,10 +74,9 @@ Nombre: **«Parrilla de contenidos — [nombre de pila de la persona]»**. Los n
 
 - **Las opciones de `Canal + tipo`** son la línea «Opción en la parrilla» de cada ficha, copiada exacta y sin sus comillas invertidas (`linkedin - texto + imagen`, `linkedin - infografico`).
 - **Una fila cuya opción no tiene ficha** (un canal o un tipo que la persona no definió) se trata como sin formatos: se escribe el texto y se sugiere en una línea «agrega un canal» o «agrega un formato».
-- **Si la base ya existe y le falta una opción de `formatos.md`,** agrégala al arrancar cualquier flujo y relee (en ClickUp, pídesela a la persona). Nunca borres ni renombres una opción que tenga filas.
+- **Si la base ya existe y le falta una opción de `formatos.md`,** agrégala al poner al día el tablero y relee (en ClickUp, pídesela a la persona). Nunca borres ni renombres una opción que tenga filas.
 - **Opciones de antes:** `<red> - foto` equivale a `<red> - texto + imagen` (en Instagram, a `instagram - imagen`) y `<red> - video` a `<red> - texto + video` (en Instagram no cambia). Mover las filas de la opción vieja a la nueva se pregunta una vez, con `AskUserQuestion`.
-- **La regla de texto** (extensión máxima y hashtags) es la línea `Texto:` del canal de la pieza. Si chocan dos reglas, el orden es: `voz.md` y el redactor, después «Tus reglas» de la ficha, después `Texto:` del canal. La voz también manda sobre la ficha: si «El borrador entrega» pide algo que la voz prohíbe (un pedido al lector), no se escribe.
-- **La forma del borrador** es «El borrador entrega» de la ficha del tipo.
+- **La regla de texto y la forma de cada borrador** también salen de `formatos.md`. Las usa `/contenido:post-redactar`: aquí no se copian.
 
 **`Redactor`** — una opción por redactor de la persona, con su nombre sin el prefijo `redactor-` (`construir-con-ia` para `.claude/agents/redactor-construir-con-ia.md`), más `Otro`. Una pieza con `Otro` la escribe el redactor que la persona indique. Si la persona todavía no tiene redactores, la única opción es `Otro`: sugiere `/contenido:construir-redactores`, y cada redactor nuevo agrega su opción.
 
@@ -109,7 +109,7 @@ Anota aquí tus temas, uno por viñeta: un título y de qué se trata. Cuando un
 - ✅ **[Título del tema].** [De qué se trata] · usado en [ID]
 ```
 
-Cuando la skill propone un tema de «Por usar», en el mismo turno lo marca con ✅, le agrega `usado en [ID]` y lo mueve **al final de «Usados»**. Así arriba queda solo lo que falta usar. No cambia ni el título ni la descripción que escribió la persona, y no le pide más datos para anotar un tema: lo que falte se pregunta al redactar.
+Cuando `/contenido:post-proponer` propone un tema de «Por usar», en el mismo turno lo marca con ✅, le agrega `usado en [ID]` y lo mueve **al final de «Usados»**. Así arriba queda solo lo que falta usar. No cambia ni el título ni la descripción que escribió la persona, y no le pide más datos para anotar un tema: lo que falte se pregunta al redactar.
 
 ### En Notion
 
@@ -148,29 +148,31 @@ Una lista «Parrilla de contenidos — [nombre de pila de la persona]» dentro d
 - Los ejemplos de `AskUserQuestion` describen las preguntas: si la herramienta está disponible respeta sus límites (máximo 4 preguntas por llamada, de 2 a 4 opciones); si no, haz las mismas preguntas en el chat. Reutiliza lo que el usuario ya haya dicho.
 - **Calcula las fechas y los días de la semana con una herramienta** (por ejemplo el comando `date`), nunca de memoria. «Hoy» es hoy en la hora local de la persona.
 - Trabaja en el proyecto que eligió el usuario. Instalar la skill nunca crea nada.
-- Redactar y guardar no autoriza a publicar, programar posts ni enviar mensajes.
+- Construir el tablero no autoriza a publicar, programar posts ni enviar mensajes.
 
 ## CRÍTICO: arranque automático al cargar
 
 Cuando el usuario pida este flujo, mira en silencio si existe `parrilla.md` y sigue:
 
-- **No existe:** la skill todavía no está configurada. Ve a Configurar, pida lo que pida el usuario: tu siguiente mensaje es la pregunta del destino, con sus tres opciones. Nada más.
-- **Existe:** léelo y ve directo al flujo que pidió.
+- **No existe:** el tablero todavía no está construido. Ve a Configurar: tu siguiente mensaje es la pregunta del destino, con sus tres opciones. Nada más.
+- **Existe:** el tablero ya está construido. Léelo y ve a «Poner al día». Si el pedido fue «arma mi parrilla» y no queda claro qué quiere, pregunta una vez: poner al día el tablero, o proponer temas (eso es `/contenido:post-proponer`).
 
-En los dos casos, lee también `formatos.md` si existe, en silencio. Si `parrilla.md` trae una línea `Texto:` de antes y ya existe `formatos.md`, manda `formatos.md`: pregunta una vez si borras la línea vieja. Si trae `Texto:` y no existe `formatos.md`, úsala tal cual y sugiere una vez `/contenido:construir-formatos` para definirla allá.
+En los dos casos, lee también `formatos.md` si existe, en silencio. Si `parrilla.md` trae una línea `Texto:` de antes y ya existe `formatos.md`, manda `formatos.md`: pregunta una vez si borras la línea vieja.
 
-| Pedido | Flujo |
+**Esta skill no propone temas, no redacta y no cierra publicaciones.** Si el pedido es uno de esos, di en una línea qué comando lo hace y detente:
+
+| Pedido | Comando |
 |---|---|
-| «construye mi parrilla», «configura mi parrilla», o cualquier pedido sin `parrilla.md` | Configurar |
-| «arma mi parrilla», «propón temas», «qué publico las próximas semanas» | Armar |
-| «redacta el post», «escribe el post de la semana», «el tema X está aprobado» | Redactar |
-| «repaso», «qué tengo vencido», «ya publiqué» | Repaso |
+| Proponer temas, armar el calendario | `/contenido:post-proponer` |
+| Redactar o aprobar un post | `/contenido:post-redactar` |
+| Armar un carrusel, un infográfico o una tarjeta | `/contenido:post-disenar` |
+| Publicar, «ya publiqué» o «lo dejé programado» | `/contenido:post-publicar` |
 
 No resumas esta skill, no expliques cómo funciona y no preguntes si el usuario quiere correrla.
 
 ## Configurar — lo primero, una sola vez
 
-Nada de lo demás funciona hasta que este flujo termina. Tiene cinco pasos y no se salta ninguno.
+Ninguna skill `post-*` funciona hasta que este flujo termina. Tiene cinco pasos y no se salta ninguno.
 
 ### 1. Pregunta dónde va la parrilla
 
@@ -270,23 +272,25 @@ Después, en un solo mensaje en el chat, pide lo que no cabe en opciones:
    **En ClickUp:** crea la lista y pídele a la persona, en un solo mensaje, lo que el conector no crea: los siete estados de la lista, con su nombre exacto y en su orden; los campos personalizados de «La base», con su nombre, su tipo y su ayuda para pegarla en la descripción; y la vista de tablero agrupada por estado. Espera a que diga que terminó.
 3. Escribe el bloque **«Cómo funciona»**, con sus datos reales (en Notion, en la descripción de la base; en Airtable, en la descripción de la tabla; en ClickUp, en la descripción de la lista):
 
-   > Parrilla de [red] de [nombre]. La skill propone y [nombre] decide.
+   > Parrilla de [red] de [nombre]. Las skills proponen y [nombre] decide.
    >
    > **Tipo de tema:** [el tipo elegido, o «lo define cada redactor»].
    >
-   > **Armar** («arma mi parrilla»): se proponen temas en `Tema Propuesto ✍️`, uno por [día]. Apruebo, corrijo o descarto cada uno.
+   > **1 · Proponer** (`/contenido:post-proponer`): se proponen temas en `Tema Propuesto ✍️`, uno por [día]. Apruebo, corrijo o descarto cada uno.
    >
-   > **Redactar** («redacta el post»): se verifica cada cifra y se escribe con mi voz. El post queda en `Borrador Listo 👀`. Con mi ok pasa a `Listo a Publicar 👍`.
+   > **2 · Redactar** (`/contenido:post-redactar`): se verifica cada cifra y se escribe con mi voz. El post queda en `Borrador Listo 👀`. Con mi ok pasa a `Listo a Publicar 👍`.
    >
-   > **Repaso** («repaso de mi parrilla»): un solo mensaje con lo vencido. Un post solo pasa a `Publicado ✅` cuando yo paso el link.
+   > **Si lleva pieza visual** (`/contenido:post-disenar`): el carrusel, el infográfico o la tarjeta se arman con mi estilo, sin cambiarle una palabra al texto.
    >
-   > **Reglas:** un post por [día]; si falla, se corre una semana. [Sus límites, uno por línea.]
+   > **3 · Publicar** (`/contenido:post-publicar`): el día de la pieza recibo todo para publicar. Un post solo pasa a `Publicado ✅` cuando yo paso el link.
+   >
+   > **Reglas:** un post por [día]. [Sus límites, uno por línea.]
 
 4. **Relee la base** con tu herramienta y comprueba que `Fuentes` y `Temas propios` existen y quedaron arriba de la parrilla, y que están los ejemplos de la plantilla. Después compara campo por campo contra «La base»: los 14 nombres exactos, cada uno con su ayuda, las columnas de las tablas en el orden por defecto, y `Estado` como selección (en ClickUp, los estados de la lista) con sus siete valores exactos. ClickUp puede devolver los estados en minúsculas: al compararlos, ignora mayúsculas y minúsculas. Si algo quedó distinto, corrígelo antes de seguir; si no puedes, dilo. En ClickUp, anota qué campos personalizados existen: los que falten se escriben en la descripción de cada tarea.
 
 ### 5. Escribe parrilla.md y entrega
 
-`parrilla.md` se escribe **solo después** de releer la base: su existencia le dice a la skill que la configuración terminó.
+`parrilla.md` se escribe **solo después** de releer la base: su existencia le dice a las demás skills que el tablero está listo.
 
 ```
 # Parrilla
@@ -313,173 +317,31 @@ Después, en un solo mensaje en el chat, pide lo que no cabe en opciones:
 - [Archivos o carpetas donde la persona guarda ideas o documenta su trabajo. Los temas ya usados se marcan ahí]
 ```
 
-Después di, con sus datos reales: el link de la base, dónde anotar sus temas (`Temas propios`) y dónde agregar sus fuentes (`Fuentes`), lo que haya que agregar a mano si algo no se pudo crear, y una sola pregunta: «La parrilla tiene ejemplos para que veas cómo funciona. ¿Los borro o los dejas un tiempo para guiarte?». Si dice que sí, bórralos como indica la plantilla y anótalo en `parrilla.md`. Después da una sola acción siguiente: «Di "arma mi parrilla" y te propongo los temas de los próximos cuatro [día]».
+Después di, con sus datos reales: el link de la base, dónde anotar sus temas (`Temas propios`) y dónde agregar sus fuentes (`Fuentes`), lo que haya que agregar a mano si algo no se pudo crear, y una sola pregunta: «La parrilla tiene ejemplos para que veas cómo funciona. ¿Los borro o los dejas un tiempo para guiarte?». Si dice que sí, bórralos como indica la plantilla y anótalo en `parrilla.md`. Después da una sola acción siguiente: «Para proponer los temas de los próximos cuatro [día], escribe `/contenido:post-proponer`».
 
-## Armar — los temas de las próximas semanas
+## Poner al día — cuando el tablero ya existe
 
-**Resultado:** cada tema del periodo queda en `Tema Aprobado ✔` o en `Descartado 🗑️`, con fecha. Aquí no se redacta ni una línea de ningún post.
+Empieza cuando existe `parrilla.md`. Compara el tablero con lo que hoy dicen `formatos.md` y los redactores, y corrige solo lo que falte:
 
-**Periodo por defecto:** las próximas 4 fechas del día fijo que no tengan pieza asignada. La persona puede pedir otro rango.
+1. **Comprueba el acceso** con una lectura real del tablero. Sin acceso, sigue el paso 2 de Configurar.
+2. **`Canal + tipo`:** agrega cada «Opción en la parrilla» de `formatos.md` que falte (en ClickUp, pídesela a la persona). Nunca borres ni renombres una opción que tenga filas.
+3. **`Redactor`:** agrega una opción por cada redactor nuevo de `.claude/agents/redactor-*.md`.
+4. **Los campos y los estados:** compáralos contra «La base». Lo que falte se crea con su ayuda; lo que no puedas crear, se lo pides a la persona con el paso exacto.
+5. **`parrilla.md`:** pon al día las líneas `Redactores` y `Formatos`.
+6. Relee el tablero y di, en una lista corta, qué cambió. Si no había nada que cambiar, dilo en una línea.
 
-### El tema
-
-Todo tema sigue el **tipo de tema** de `parrilla.md` (si dice «lo define cada redactor», los temas y el propósito del redactor que lo escribe) y cumple tres condiciones:
-
-- **Le pasó a la persona.** Algo que hizo, resolvió, decidió o midió. No un consejo genérico. Un tema que sale de una fuente lleva su punto de vista: qué piensa, qué hizo con eso o qué cambia para su lector. La noticia sola no es un tema.
-- **Se puede sostener.** Si el tema trae una cifra, se anota en `Notas` con su fuente. Una fuente es una de tres cosas: un archivo, una medición, o el relato de la persona dicho en la conversación, que se anota «relato de [persona], AAAA-MM-DD». Va ❓ solo cuando la cifra del relato contradice a un archivo o cuando la persona misma duda: en ese caso se propone la cifra que sí existe. Nunca se infla. Un tema sin cifra también vale: su valor es la práctica.
-- **No cruza las reglas propias.** Los terceros (clientes, amigos, colegas) se nombran como digan las reglas propias de `parrilla.md`. Si no dicen nada, por su rol y no por su nombre.
-
-### 1. Junta temas, los baratos primero
-
-1. **La base:** filas en `Tema Propuesto ✍️`, `Tema Aprobado ✔` o `Borrador Listo 👀` sin `Fecha programada` o con la fecha vencida. Ya están pensadas; van primero.
-2. **`Temas propios`:** los temas de «Por usar». Son de la persona y van antes que cualquier otro. Al proponer uno, márcalo con ✅, agrégale `usado en [ID]` y muévelo al final de «Usados».
-3. **`Fuentes`:** si tienes una herramienta para leer la web, abre las fuentes con link, empezando por las que llevan más tiempo sin revisar, busca novedades que den un tema y anota la fecha de hoy en `Ultima revision`. Las fuentes sin link se le preguntan a la persona. Sin herramienta para leer la web, dilo en una línea y sigue.
-4. **Los bancos de temas** de `parrilla.md`, saltando los ya usados y lo ya publicado (vista `Publicado`).
-5. **El trabajo reciente real** que haya en el proyecto: lo que la persona cerró, decidió o midió en las últimas semanas, y el «Insumo propio» de sus redactores.
-6. **Si no alcanza, pregunta:** «Cuéntame, en una línea cada una, cosas que hiciste, resolviste o mediste en las últimas semanas: tantas como fechas falten por llenar».
-7. **Redactor repetido:** si 3 de las últimas 4 piezas de la base (publicadas o programadas, sin contar las descartadas) son del mismo redactor, el tema siguiente viene de otro, si lo hay.
-
-### 2. Arma el calendario
-
-- Una pieza por fecha del día fijo. Una fila descartada no ocupa su fecha. Formato por defecto: el canal por defecto de `parrilla.md`. Con `formatos.md`, propón para cada tema, dentro del canal por defecto, el tipo cuya ficha lo describe en «Cuándo conviene»; si ninguna encaja, el tipo de la línea `Por defecto:` de ese canal (su `### <tipo>` da la opción).
-- No dos temas seguidos del mismo redactor, mientras haya temas de otro. Si todos los temas disponibles son del mismo redactor, dilo en una línea y sigue.
-- Lleva en `Notas` la marca ⚠️ **tema sensible** el tema que cumple alguna de estas tres: cuenta un error propio, deja reconocer a un tercero, o revela cifras internas del negocio (ingresos, costos, clientes). En esos, la persona aprueba el tema, no solo la redacción.
-
-### 3. Propón en la base
-
-Crea una fila por tema con `Estado` `Tema Propuesto ✍️`, `Tema`, `Descripcion`, `Fecha programada`, `Canal + tipo`, `Redactor`, y en `Notas` de dónde salió el tema, su cifra con la fuente si la trae y las dudas con ❓. `Palabras` queda vacío.
-
-Luego, **un solo mensaje**: una tabla `ID · Tema · Fecha · Redactor · Descripcion`, el link de la base y una única pregunta: «¿aprobado, corregir o descartar, tema por tema?».
-
-### 4. Itera
-
-- **Aprobado** → `Tema Aprobado ✔`.
-- **Corregir** → se queda en `Tema Propuesto ✍️`, el pedido va a `Notas`, se ajusta y se vuelve a mostrar **solo lo que cambió**.
-- **Descartar** → `Descartado 🗑️` con el motivo en `Notas`. Si salió de un banco de temas, se marca ahí también para no volver a proponerlo. La fecha queda libre: en la misma vuelta propone un reemplazo para esa fecha. Si no hay otro tema, dilo y la fecha queda sin pieza.
-
-**Listo cuando** no queda ninguna fila del periodo en `Tema Propuesto ✍️`. Cierra con el calendario final en una tabla, marcando las fechas que quedaron sin pieza.
-
-## Redactar — el post aprobado
-
-**Resultado:** el post en `Borrador Listo 👀` con su archivo en `posts/`, y en `Listo a Publicar 👍` cuando la persona lo aprueba.
-
-**Cuándo:** a pedido, o para la pieza en `Tema Aprobado ✔` con la `Fecha programada` más cercana. Si la persona tiene poco tiempo entre semana, redacta en la misma sesión todas las aprobadas del periodo: así cada semana solo le queda leer y publicar.
-
-### 1. Toma la pieza
-
-Lee la fila (`Descripcion`, `Notas`). Si trae ⚠️ **tema sensible** sin un ok explícito de la persona sobre el tema, detente y pregúntalo.
-
-**Comprueba que hay material para un post.** Una línea en la parrilla alcanza para aprobar un tema, no para escribirlo. Si ni la fila ni sus fuentes dicen qué hizo la persona, qué midió y qué le costó o qué decidió, pídelo antes de escribir, en un solo mensaje y con las preguntas que el redactor de la pieza necesita responder. No rellenes los huecos ni entregues un borrador a medias.
-
-### 2. Verifica antes de escribir
-
-Busca cada cifra, fecha u hecho en su fuente primaria: el archivo, la medición o el relato de la persona.
-
-- Si la fuente contradice lo que dice la fila, **manda la fuente**, y la corrección se anota en `Notas`.
-- Las horas se escriben en la hora local de la persona. Una fuente en otra zona horaria no se copia tal cual.
-- Lo que no se puede verificar sale del post o queda con ❓ para que la persona lo resuelva.
-
-### 3. Escribe el borrador
-
-**El texto lo escribe el redactor que indica el campo `Redactor`.** Pásale el tema, el ángulo, los datos ya verificados con su fuente y, de `formatos.md`, la regla de texto del canal y **la ficha completa del tipo** de la pieza, no solo su nombre: sin la ficha escribe un post de texto. Si la pieza no es de texto y no existe `formatos.md`, sugiere `/contenido:construir-formatos` en una línea y escribe el texto. Si el redactor está cargado como subagente, úsalo. Si no aparece, lee su archivo en `.claude/agents/`, `sobre-mi.md`, `voz.md` y su archivo de `aprendizaje/`, y escribe siguiéndolos al pie de la letra. Si la persona no tiene redactores, dilo en una línea, sugiere `/contenido:construir-redactores` y, si quiere seguir, escribe en un registro llano y marca el borrador como voz provisional.
-
-Guarda `posts/NN-<slug>.md`. `NN` son dos dígitos con el orden en que se creó el borrador (no es el `ID` de la fila) y `<slug>` son de 3 a 5 palabras del titular en kebab-case:
-
-```
-<!-- Creado: AAAA-MM-DD · Actualizado: AAAA-MM-DD (vN) -->
-# Post — [titular]
-
-**Publicar:** [día] AAAA-MM-DD · **Aprobado:** tema AAAA-MM-DD · **Aprobado para publicar:** pendiente · **Parrilla:** [link de la fila]
-**Ángulo:** [el ángulo en una línea] · **Redactor:** redactor-[nombre] · **Canal + tipo:** [la opción de la fila]
-**Link:**
-
-## Para publicar
-
-[El texto tal como se va a publicar, hashtags incluidos]
-
-**Imagen:** [opcional: qué imagen y de dónde sale. Nunca frena la publicación. Obligatoria si la ficha del tipo la pide; se omite si el tipo trae su propio bloque]
-**Primer comentario:** [opcional: el link que acompaña al post]
-
-[El bloque que pide «El borrador entrega» de la ficha del tipo, con su nombre exacto: `## Láminas`, `## Infográfico` o `## Guion de video`. Un texto solo no lleva bloque]
-
-## Fuente
-
-- **[dato o afirmación del post]:** [archivo y sección · medición con su fecha · «relato de [persona], AAAA-MM-DD»]
-
-## Chequeo antes de publicar
-
-- [ ] Voz: revisado contra `voz.md` y el aprendizaje del redactor
-- [ ] No cruza ninguna regla propia de `parrilla.md`
-- [ ] Toda cifra está rastreada a la fuente de arriba
-- [ ] Extensión y hashtags dentro de la regla de texto (o «sin regla de texto», si no hay ninguna)
-- [ ] La pieza cumple la ficha de su tipo: trae su bloque y respeta «Tus reglas»
-- [ ] ❓ [persona]: [la duda que solo ella puede resolver, si la hay]
-```
-
-Reglas de contenido (qué se dice; el cómo es del redactor):
-
-- **Un solo resultado, a nivel total.** El antes y el después de una misma medida cuentan como uno. No el desglose. Sin montos si la persona pidió solo porcentajes.
-- **Nada que la persona no pueda sostener.** Lo que no tiene fuente no se afirma.
-- Si el post cuenta algo hecho con una herramienta automática o con IA, muestra qué decidió o revisó la persona. Ese dato sale de su relato: si no lo contó, pregúntalo. No lo inventes.
-- La voz manda sobre la regla de texto: si `voz.md` o el redactor dicen «nunca hashtags», el post no lleva.
-- Toda cifra de una lámina, de un infográfico o de un guion va al bloque `## Fuente`, igual que las del texto.
-- En **Chequeo antes de publicar** marca `[x]` solo lo que comprobaste de verdad, y agrega los chequeos propios del tema.
-
-### 4. Déjalo para revisión
-
-En la base: `Estado` `Borrador Listo 👀`, `Palabras` (el conteo real del texto de **Para publicar**, sin las líneas `**Imagen:**` y `**Primer comentario:**` y sin el bloque del tipo) y `Archivo en el repo`. Muestra en la conversación el texto completo, con el nombre del redactor en una línea encima, y **solo** las dudas ❓.
-
-### 5. Aprobación
-
-- **Aprobado** → `Listo a Publicar 👍`, y `**Aprobado para publicar:** AAAA-MM-DD (vN)` en el archivo. Si pidió cambios de redacción, se aplican primero y se vuelve a mostrar.
-- **En Notion, al aprobar, actualiza la página de la pieza en el mismo turno, sin que te lo pidan.** (En ClickUp la página es la descripción de la tarea. En Airtable no hay página: la versión final queda en el archivo de `posts/` y se actualizan los campos de la fila.) Cuerpo de la página: `## Versión final` (el texto listo para copiar) · la imagen, si la hay · el primer comentario, si lo hay · `## Fuente` · `## Historial` de versiones. Pon al día `Tema` y `Descripcion` si el texto cambió el título o las cifras, además de `Palabras` y `Notas`. Verifica releyendo la página.
-- **Todo cambio de redacción que pida la persona se registra en el archivo de `aprendizaje/` del redactor,** como principio más ejemplo, para que el siguiente borrador ya salga corregido.
-- **Corregir el enfoque** → vuelve a `Tema Aprobado ✔` con el pedido en `Notas`.
-- **Descartar** → `Descartado 🗑️` con el motivo. El archivo se conserva.
-
-Si el texto cambia después del ok, la pieza vuelve a `Borrador Listo 👀`.
-
-## Repaso — vencidas y publicadas
-
-### Ciclo A. Cerrar lo publicado
-
-Empieza cuando la persona dice que publicó y pasa el link.
-
-1. Si tienes una herramienta de navegador, verifica que el link abre el post. Si no se puede verificar, dilo.
-2. En la fila: `Estado` `Publicado ✅`, `URL publicada` y `Fecha de publicacion` (la **real**, no la programada). Si el texto publicado difiere del borrador, corrige `Palabras`.
-3. En el borrador: completa `**Link:**`.
-
-Si la persona dice que lo dejó programado en la red, la fila pasa a `Programado 🕦` y se cierra cuando pase el link. **Nunca se marca publicado sin el link de la persona,** aunque el post se vea en vivo.
-
-### Ciclo B. El repaso
-
-Empieza a pedido de la persona, o con una rutina programada si ella la pide.
-
-1. Busca las filas con `Fecha programada` anterior a hoy y `Estado` distinto de `Publicado ✅` y de `Descartado 🗑️`.
-2. Responde con **un solo mensaje**:
-
-   | ID | Tema | Programada | Días de atraso | Estado | Qué falta |
-   |---|---|---|---|---|---|
-
-   «Qué falta» sale de `Notas`; si no hay notas, va vacío. Debajo: el link de la base y una sola pregunta: cuáles salieron y cuáles se corren una semana.
-
-3. **Pieza vencida que se corre:** nueva `Fecha programada` en la siguiente fecha libre del día fijo, y el motivo en `Notas`. Nunca dos piezas el mismo día: si choca, se corre la siguiente también. Actualiza la fecha en el archivo del borrador.
+Si la persona pide cambiar el día fijo o una regla propia, cámbialo en `parrilla.md` y en la descripción del tablero. Mover la parrilla a otro destino es volver a Configurar: avisa antes que las filas no se copian solas.
 
 ## Reglas
 
 - Cuando esta skill se active, ve directo al trabajo. Sin resumen, sin explicación, sin preámbulo.
-- **La skill propone; la persona decide.** Ninguna fila pasa a `Tema Aprobado ✔` ni a `Listo a Publicar 👍` sin su ok explícito en la conversación.
-- **La skill nunca publica** ni marca `Publicado ✅` sin que la persona diga que salió y pase el link.
-- **Una pieza por semana, en el día fijo.** Si falla, la pieza se corre una semana; nunca dos el mismo día.
-- **Toda cifra del post tiene fuente** en el bloque `## Fuente`. Sin fuente, la cifra sale o se marca ❓.
-- **Un solo mensaje por vuelta** en Armar y en Repaso, nunca uno por pieza.
-- Los nombres de los campos y los valores de `Estado` se copian exactos: sin tilde los campos; con su emoji, sin número y en su orden los estados.
+- **Esta skill construye el tablero y nada más.** No propone temas, no redacta, no arma piezas y no cierra publicaciones: eso es de las skills `post-*`.
+- Los nombres de los campos y los valores de `Estado` se copian exactos: sin tilde los campos; con su emoji, sin número y en su orden los estados. Las demás skills los leen de aquí.
 - Cada cambio se escribe en la base en el mismo turno en que ocurre, y se verifica releyendo.
-- Cada post lo escribe el redactor que indica su campo `Redactor`, y todo borrador dice qué redactor lo escribió.
-- Las reglas propias de `parrilla.md` y los límites de `sobre-mi.md` mandan sobre cualquier tema.
+- Los límites de `sobre-mi.md` y lo que la persona agregue se anotan en «Reglas propias» de `parrilla.md`: mandan sobre cualquier tema.
 - Describe a la persona por sus rasgos. No la etiquetes por su país ni por su región.
-- **Los formatos se usan, no se definen aquí.** Los tipos de `Canal + tipo`, la regla de texto y la forma de cada borrador salen de `formatos.md`. Esta skill no los pregunta ni los copia en `parrilla.md`.
-- **Los ejemplos no cuentan.** Lo que empieza con `[PRUEBA]` o `[EJEMPLO]` no es una pieza, una fuente ni un tema: Armar no lo usa ni le reserva fecha, y Repaso no lo lista.
-- **Primero se configura.** Sin `parrilla.md` no corre ningún otro flujo: se pregunta el destino (Notion, Airtable o ClickUp) y se consigue el acceso.
+- **Los formatos se usan, no se definen aquí.** Los tipos de `Canal + tipo` salen de `formatos.md`. Esta skill no los pregunta ni los copia en `parrilla.md`.
+- **Los ejemplos no cuentan.** Lo que empieza con `[PRUEBA]` o `[EJEMPLO]` no es una pieza, una fuente ni un tema: ninguna skill lo usa ni le reserva fecha.
+- **Primero se configura.** Sin `parrilla.md` no corre ninguna skill `post-*`: se pregunta el destino (Notion, Airtable o ClickUp) y se consigue el acceso.
 - La estructura es la misma en los tres destinos: los mismos 14 campos con su ayuda, los mismos siete estados.
 - Si falta el acceso, dilo y pide el paso exacto. Nunca afirmes que creaste o actualizaste algo en la base sin haberlo releído.

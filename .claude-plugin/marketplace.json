@@ -31,8 +31,8 @@
     {
       "name": "contenido",
       "source": "./plugins/contenido",
-      "description": "Redactores que escriben con tu propia voz y una parrilla de contenidos en Notion, Airtable o ClickUp: /contenido:construir-redactores deja sobre-mi.md, voz.md y un redactor por grupo de temas; /contenido:construir-formatos define tus tipos de publicación por canal (texto, carrusel, infográfico, video) con una ficha por tipo; /contenido:construir-parrilla configura el destino, crea la parrilla y propone temas, redacta y repasa lo vencido",
-      "version": "0.3.0",
+      "description": "Redactores que escriben con tu propia voz y una parrilla de contenidos en Notion, Airtable o ClickUp. /contenido:setup te guía desde cero hasta tu primera publicación. Las skills construir-* definen: construir-redactores (sobre-mi.md, voz.md y un redactor por grupo de temas), construir-formatos (tus tipos de publicación por canal, con una ficha por tipo), construir-estilo (cómo se ven tus piezas) y construir-parrilla (el tablero). Las skills post-* llevan cada pieza: post-proponer (temas aprobados), post-redactar (borradores aprobados con un solo ok), post-disenar (el carrusel, el infográfico o la tarjeta armados con tu estilo) y post-publicar (publicación cerrada con su link)",
+      "version": "0.4.0",
       "author": {
         "name": "Emmanuel Cervera Barturen",
         "url": "https://github.com/emmanuelbarturen"
@@ -51,7 +51,11 @@
         "formatos",
         "notion",
         "airtable",
-        "clickup"
+        "clickup",
+        "estilo",
+        "carrusel",
+        "canva",
+        "setup"
       ],
       "strict": false
     }
